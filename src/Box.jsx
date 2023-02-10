@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import useKeyboard from "./useKeyboard";
 
 const Box = (props) => {
   const ref = useRef();
   const keyMap = useKeyboard();
+  // const [selected, setSelected] = useState(false);
 
   useFrame((_, delta) => {
     keyMap["KeyA"] && (ref.current.position.x -= 1 * delta);
@@ -14,7 +15,7 @@ const Box = (props) => {
   });
 
   return (
-    <mesh ref={ref} {...props}>
+    <mesh ref={ref} {...props} onPointerDown={() => setSelected(!selected)}>
       <boxGeometry />
       <meshBasicMaterial color={0x00ff00} wireframe />
     </mesh>
